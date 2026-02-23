@@ -19,13 +19,12 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false, updatable = false)
-    private UUID id;
+    private String id;
 
     private String clientName;
     private String companyCode;
     private String clientAddress;
 
-    @Getter
     @Column(name = "invoice_month")
     private String invoiceMonth;
 
