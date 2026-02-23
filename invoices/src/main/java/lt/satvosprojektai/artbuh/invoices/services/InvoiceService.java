@@ -22,15 +22,16 @@ public class InvoiceService {
 
     public Page<Invoice> getInvoices(InvoiceFilter filter, Pageable pageable) {
 
-
-
-        if (filter.getMonth() != null && !filter.getMonth().isBlank()) {
-            YearMonth month = filter.getParsedMonth();
+        YearMonth month = null;
+        if (filter != null && filter.getMonth() != null && !filter.getMonth().isBlank()) {
+            month = filter.getParsedMonth();
         }
+
+        String search = filter != null ? filter.getSearch() : null;
 
         Specification<Invoice> spec = Specification
                 .where(InvoiceSpecifications.byMonth(month))
-                .and(InvoiceSpecifications.bySearch(filter.getSearch()));
+                .and(InvoiceSpecifications.bySearch(search));
 
         return invoiceRepository.findAll(spec, pageable);
     }
@@ -143,12 +144,5 @@ public class InvoiceService {
     }
 
 
-    @PostMapping("/search")
-    public Page<InvoiceDto> searchInvoices(
-            @RequestBody InvoiceFilter filter,
-            Pageable pageable
-    ) {
-        return invoiceService.getInvoices(filter, pageable)
-                .map(invoiceMapper::toDto);
-    }
+
 }

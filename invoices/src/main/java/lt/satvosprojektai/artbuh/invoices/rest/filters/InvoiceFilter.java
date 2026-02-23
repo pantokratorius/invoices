@@ -2,6 +2,7 @@ package lt.satvosprojektai.artbuh.invoices.rest.filters;
 
 import lombok.Getter;
 import lombok.Setter;
+import java.time.YearMonth;
 
 @Getter
 @Setter

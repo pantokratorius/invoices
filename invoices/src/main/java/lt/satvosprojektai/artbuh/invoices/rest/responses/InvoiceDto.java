@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.YearMonth;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ public class InvoiceDto {
     private String clientName;
     private String companyCode;
     private String clientAddress;
-    private YearMonth month;
+    private String month;
 
     private BigDecimal totalBase;
     private BigDecimal totalPrice;

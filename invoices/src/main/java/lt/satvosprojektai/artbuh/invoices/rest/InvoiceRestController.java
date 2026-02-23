@@ -37,6 +37,15 @@ public class InvoiceRestController {
         return mapper.toDto(service.addPosition(id, request));
     }
 
+    @PostMapping("/search")
+    public Page<InvoiceDto> searchInvoices(
+            @RequestBody InvoiceFilter filter,
+            Pageable pageable
+    ) {
+        return invoiceService.getInvoices(filter, pageable)
+                .map(invoiceMapper::toDto);
+    }
+
     @PutMapping("/positions/{positionId}")
     public InvoicePositionDto updatePosition(
             @PathVariable String positionId,
@@ -49,4 +58,5 @@ public class InvoiceRestController {
     public void deletePosition(@PathVariable String positionId) {
         service.deletePosition(positionId);
     }
+
 }

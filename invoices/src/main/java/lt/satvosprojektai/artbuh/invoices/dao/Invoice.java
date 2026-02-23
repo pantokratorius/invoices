@@ -2,6 +2,7 @@ package lt.satvosprojektai.artbuh.invoices.dao;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.YearMonth;
@@ -14,16 +15,14 @@ import java.util.UUID;
 public class Invoice {
 
     @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false, updatable = false)
     private UUID id;
 
-    @Getter
     private String clientName;
-    @Getter
     private String companyCode;
-    @Getter
     private String clientAddress;
 
     @Getter
@@ -39,12 +38,14 @@ public class Invoice {
     public BigDecimal getTotalBase() {
         return positions.stream()
                 .map(InvoicePosition::getBaseAmount)
+                .filter(java.util.Objects::nonNull)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getTotalPrice() {
         return positions.stream()
                 .map(InvoicePosition::getPrice)
+                .filter(java.util.Objects::nonNull)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

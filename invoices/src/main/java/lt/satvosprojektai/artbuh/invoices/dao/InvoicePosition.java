@@ -1,4 +1,13 @@
+package lt.satvosprojektai.artbuh.invoices.dao;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -7,9 +16,8 @@ import java.math.RoundingMode;
 public class InvoicePosition {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false, updatable = false)
-    private UUID id;
+    private String id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "invoice_id", nullable = false)
