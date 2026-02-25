@@ -144,5 +144,22 @@ public class InvoiceService {
     }
 
 
+    @Transactional
+    public List<Invoice> initCurrentPeriodInvoices() {
+
+        int[] currentPeriod = DateUtils.getFromNowYearsAndMonth(1);
+
+        List<Invoice> invoiceList = InvoiceRepository.findByState(CustomerBankState.OPENED).stream()
+                .map(o -> makeStatement(currentPeriod[0], currentPeriod[1], o)).toList();
+
+        customerBankStatementRepository.saveAll(statements);
+
+        logger.info("Created period statements, size: {}", statements.size());
+
+        return statements;
+    }
+
+
+
 
 }
